@@ -1,4 +1,4 @@
-# 🤖 Towers of Hanoi — Solved by a Robot Arm
+# Towers of Hanoi — Solved by a Robot Arm
 
 A Dynamixel servo-driven robotic arm that physically solves the classic **Towers of Hanoi** puzzle — picking up, moving, and stacking real blocks across three pegs using the optimal 7-move solution for a 3-disk tower.
 
@@ -11,7 +11,7 @@ A Dynamixel servo-driven robotic arm that physically solves the classic **Towers
 
 ---
 
-## 📖 Overview
+## Overview
 
 This project drives a 5-motor Dynamixel robot arm over a USB serial connection to autonomously solve Towers of Hanoi with 3 disks. The arm rotates between three fixed positions (the three "pegs"), and lowers to three fixed heights (the three "block levels"), executing a scripted pick-and-place routine for each move in the classic recursive solution.
 
@@ -24,7 +24,7 @@ flowchart LR
     A -.-> C
 ```
 
-## 🧩 The Puzzle
+## The Puzzle
 
 Towers of Hanoi with **n = 3 disks** requires a minimum of **2ⁿ − 1 = 7 moves** to transfer the whole stack from the start peg to the goal peg, using the third peg as auxiliary storage — never placing a larger disk on a smaller one.
 
@@ -47,7 +47,7 @@ graph TD
     Start -.->|Robot arm executes 7 moves| Goal
 ```
 
-## 🦾 Hardware Mapping
+## Hardware Mapping
 
 The arm has **5 Dynamixel servos**, each addressed by ID over the serial bus. Their roles, inferred directly from `Final Code.c`:
 
@@ -75,7 +75,7 @@ The arm has **5 Dynamixel servos**, each addressed by ID over the serial bus. Th
 | `1` | Block resting on top of **one** other block |
 | `2` | Block resting on top of **two** other blocks (top of a full stack) |
 
-## ⚙️ Pick-and-Place Cycle
+## Pick-and-Place Cycle
 
 Every disk move calls `move(connection, fromHeight, toHeight, fromPeg, toPeg)`, which runs the same choreography each time:
 
@@ -96,7 +96,7 @@ sequenceDiagram
     M->>Arm: return to home rotation
 ```
 
-## 🧠 Function Call Graph
+## Function Call Graph
 
 ```mermaid
 graph TD
@@ -118,7 +118,7 @@ graph TD
 
 `move_to_location()` builds a raw Dynamixel AX-12 instruction packet (`0xFF 0xFF id length instr params checksum`) and writes it to the serial connection; `wait_until_done()` gives each motion time to complete before the next command is issued.
 
-## 🔢 The 7-Move Solution
+## The 7-Move Solution
 
 `main()` fires off the same sequence a recursive Hanoi solver would produce for 3 disks (A → C, using B as auxiliary):
 
@@ -147,7 +147,7 @@ sequenceDiagram
     A->>C: Small
 ```
 
-## 🛠️ Requirements
+## Requirements
 
 - A Dynamixel AX-12–class robot arm with **5 servos**, wired for daisy-chained serial communication
 - USB-to-serial adapter presenting as `/dev/ttyUSB0`
@@ -155,7 +155,7 @@ sequenceDiagram
 - Linux with `gcc` and standard POSIX headers (`unistd.h`, `time.h`)
 - Three blocks and a fixture defining Peg A / B / C positions within the arm's reach
 
-## ▶️ Building & Running
+## Building & Running
 
 ```bash
 gcc -o hanoi "Final Code.c" -I. -ldynamixel
@@ -164,7 +164,7 @@ gcc -o hanoi "Final Code.c" -I. -ldynamixel
 
 > The program opens a serial connection at `1,000,000` baud, then plays through the fixed 7-move routine above with no runtime input — stack the 3 blocks on Peg A before starting.
 
-## 📁 Repository Contents
+## Repository Contents
 
 | File | Description |
 |---|---|
@@ -172,7 +172,7 @@ gcc -o hanoi "Final Code.c" -I. -ldynamixel
 | `Professor Feedback.pdf` | Instructor feedback on the project |
 | `README.md` | This file |
 
-## 💡 Ideas for Extending This Project
+## Ideas for Extending This Project
 
 - Generalize `main()` to a recursive Hanoi solver for **n** disks instead of a hardcoded 3-disk sequence
 - Add position/limit sensing instead of fixed `usleep()` delays in `wait_until_done()`
