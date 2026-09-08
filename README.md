@@ -132,5 +132,3 @@ On Windows, substitute `gradlew.bat` for `./gradlew`.
 - **`Professor Feedback.pdf`** — instructor feedback on the submitted coursework
 
 ---
-
-> **Note:** GitHub's automated file browsing blocked a full listing of everything inside `src/`, so the diagrams above reflect the confirmed build configuration and entry points rather than exact class names. If you'd like a more detailed architecture diagram (actual class names, the Store interface hierarchy, query methods, etc.), share the contents of `src/` and I'll refine this further.
